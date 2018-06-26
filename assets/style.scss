@@ -1,0 +1,758 @@
+@import "antd/antd.min";
+@import url('https://fonts.googleapis.com/css?family=Zilla+Slab:300,300i,400,400i,500,500i,600,600i,700,700i');
+
+$xs: screen and (max-width : 767px); 
+$sm: screen and (max-width : 991px); 
+$md: screen and (max-width : 1199px); 
+$lg: screen and (min-width : 1200px); 
+
+$maincolor: rgb(25,118,210);
+$seccolor: rgb(255,87,34);
+
+p {
+	margin-bottom: .75em;
+
+	&:last-child {margin-bottom: 0;}
+
+	
+}
+.light {
+	font-weight: 300;
+}
+
+a,
+a:link { 
+	background-color: $maincolor;
+	color: #fff;
+	padding: 0 .25em;	
+	transition: all .2s linear;
+	display: inline-block;
+	border-radius: 4px;
+	font-style: italic;
+	position: relative;
+
+	&:hover,
+	&:focus {
+		color: inherit;
+		color: #fff;
+		//background: rgb(204, 219, 56);
+		//box-shadow: 0 0 0 2px rgba(0,0,0,1);
+		&:after {
+			content: "";
+			display: block;
+			position: absolute;
+			bottom: .15em;
+			left: .25em;
+			right: .25em;
+			border-bottom: .05em solid #fff;
+			color: #fff;
+		}
+	}
+}
+
+body {
+	font-family: 'Zilla Slab', helvetica, sans-serif;
+	font-size: 20px;
+}
+
+#root {
+	min-height: 100vh;
+	width: 100vw;
+	max-width: 100%;
+	padding-top: 1px;
+}
+
+#sitenav {
+	position: absolute;
+	bottom: 0;
+	z-index: 20;
+	right: 0;
+	padding: .5em 0;
+	margin-right: .25em;
+
+	input[type=checkbox] {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	label { 
+		cursor: pointer;
+		user-select: none;
+	}
+
+	input[type=checkbox],
+	label { display: none; }
+	
+	ul {
+		display: block;
+	}
+	ul, li {
+		display: inline-block;
+	}
+	a {
+		font-weight: bold;
+		font-style: normal;
+		display: inline-block;
+    	padding: .25em .5em;
+    	margin: 0 .25em 0 0;
+    	background-color: $seccolor;
+    	border: .25em solid #fff;
+	}
+
+	@media #{$xs} {
+
+		.shrink & {
+			height: 3.5em;
+
+			label {
+				position: relative;
+				display: block;
+				width: 100%;
+			}
+			label span {
+				position: absolute;
+			    color: #fff;
+			    background: $seccolor;
+			    right: .25em;
+			    font-size: 20px;
+			    vertical-align: middle;
+			    line-height: 1;
+			    //border: 4px solid #fff;
+			    display: block;
+			    text-align: center;
+			    font-family: verdana;
+			    padding: .45em .5em;
+			    border: .25em solid #fff;
+			    border-radius: .25em;
+				
+				&:after {
+					content: "";
+					display: block;
+					width: 1.5em;
+					height: .65em;
+					border-bottom: .2em solid #fff;
+			    	border-top: .2em solid #fff;
+				}
+				&:before {
+					content: "";
+					display: block;
+					width: 1.5em;
+					height: .45em;
+					border-top: .2em solid #fff;
+				}
+		    } // label span
+	    
+			input:checked ~ ul {
+				display: block;
+			}      
+			ul {
+				margin-top: 2.75em;
+				display: none;
+			}
+		} // &.shrink
+		
+
+		
+		ul {
+			margin-bottom: 0;
+    		text-align: right;
+    		display: block;
+    		transition: all linear .5s;
+		}
+		li {
+			display: block;
+			//&:first-child { margin-top: -2.25em; }
+		}
+		a, a:link {
+			margin: 0 .25em -.25em;
+		}
+		.logo-move &,
+		.logo-move-done & {
+			ul {
+				margin-bottom: -100%;
+			}
+		}
+	}
+} //#sitenav
+
+
+
+#hero {
+	//background: #000 url(./img/stock-photo-valencia-spain-jun-the-crowd-at-festival-de-les-arts-on-june-in-valencia-spain-557675965.jpg) center bottom;
+	background: #f8faf7 url(./img/hero-bg.jpg) center bottom;
+
+
+	height: 100vh;
+	width: 100vw;
+	max-width: 100%;
+	z-index: 10;
+	background-size: cover;
+
+	&:before {
+		content: "";
+		display: block;
+		position: fixed;
+		top: 0;
+		z-index: 1;
+		width: 100vw;
+		background-color: $maincolor;
+		border-top: 1px solid rgb(152, 170, 0);
+		border-bottom: 4px solid $maincolor;
+		box-shadow: 0 4px rgba(0,0,0, .15);
+	}
+
+	.hero-content {
+		top: 4em;
+		position: fixed;
+		@media #{$xs} { top: 2em; }
+
+		h1 {
+			padding: 15px;
+			margin-left: -15px;
+			@media #{$xs} { 
+				font-size: 1.6em; 
+				line-height: 1.4em !important;
+			}
+		}
+		h2 {
+			margin-left: -15px;
+			@media #{$xs} { font-size: 1.2em; }
+		}
+	}
+	.shrink-bg {
+		content: "";
+		display: block;
+		position: absolute;
+		left:0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		transition: all linear .2s;
+		background-color: $maincolor;
+		opacity: 0;
+	}
+	&.shrink .shrink-bg {
+		opacity: 1;
+	}
+
+	#divider {
+		display: block;
+		position: absolute;
+		bottom: -1px;
+		width: 100vw;
+		max-width: 100%;
+		padding-top: 78px;
+		z-index: 10;
+		background:  url(./img/crowd-01.svg) center bottom repeat-x;
+		opacity: 1;
+		transition: all linear .1s;
+	}
+
+	h2 { 
+		margin-top: 0; 
+	}
+
+	&.shrink {
+		height: 70px;
+		position: fixed;
+		box-shadow: 0 6px 0 rgba(0,0,0,.2);
+		border-bottom: 1px solid #fff;
+		.hero-content h2 { display: none; }
+
+		#divider {
+			opacity: .1;
+		}
+	}
+	&.logo-move {
+		.hero-content {
+			position: absolute;
+			bottom: 4em;
+			@media #{$xs} { bottom: 2em; }
+			top: auto;
+		}
+	}
+	&.logo-move-done {
+		.hero-content {
+			position: fixed;
+			bottom: auto;
+			top: 0;
+		}
+	}
+	.hero-content-container {
+		height: 100vh;
+	}
+	.hero-content {
+		
+		h1,h2,h3 {
+			float: left;
+			clear: left;
+			padding: 13px;
+			background: $maincolor;
+			color: #fff;
+			line-height: 1;
+		}
+		h1 { 
+			text-transform: uppercase; 
+			letter-spacing: .01em;
+			border-radius: 0 .5em 0 0;
+		}
+		h2 {
+			border-radius: 0 .5em .5em 0;
+			font-weight: normal;
+
+			span {
+				display: block;
+				font-size: .5em;
+				font-style: italic;
+				padding: .25em 0;
+			}
+		}
+		h3 {
+			font-weight: normal;
+			border-radius: 0 .5em .5em 0;
+			font-size: .75em;
+		}
+		nav {
+			clear: left;
+			padding: 1em 0 0 20px;
+		}
+	}
+}
+#meet-blockets {
+	
+	background-size: 100%;
+	background: #fff;
+	position: relative;
+	z-index: 1;
+
+	.divider {
+		overflow: hidden;
+		width: 100%;
+		height: 86vw;
+		display: block;
+		position: absolute;
+		z-index: -1;
+
+		&:before {
+			content: "";
+		    transform: rotate(-3deg);
+		    transform-origin: 3% 0;
+		    top: 0;
+		    left: -25%;
+		    width: 150%;
+		    height: 75%;
+		    background: #fff;
+		    position: absolute;
+		    //border-top: 4px solid rgb(204, 219, 56);
+		}
+	}
+
+	section {
+		margin-top: 4em;
+
+		&:first-child { margin-top: 0; }
+	}
+
+	#hero.shrink + & {
+		padding-top: 100vh;
+	}
+}
+
+#keyvalues {
+	min-height: 40vh;
+	padding-top: 60vh;
+}
+.hide {
+	opacity: 1;
+	transition: opacity linear .2s;
+	.shrink & { opacity: 0; }
+}
+.collapse {
+	.shrink & { display: none; }
+}
+
+.content-block {
+	padding: 3em 0;
+
+	&:nth-child(2n) {
+		background-color: #eee;
+	}
+}
+
+.api-list {
+	display: flex;
+	width: 100%;
+	margin: 3em 0;
+
+	& > div {
+		flex-basis: 50%;
+		text-align: center;
+		position: relative;
+		
+		&:after {
+			display: block;
+			content: ">";
+			position: absolute;
+			right: 0;
+			top: 50%;	
+			margin-top: -1em;
+			margin-right: -.5em;
+			font-size: 2em;
+		}
+		&:last-child:after { display: none; }
+
+		& > i {
+			display: inline-block;
+			width: 4em;
+			height: 4em;
+			background: url(http://placehold.it/48x48);
+		}
+		& > span {
+			display: block;
+		}
+		&.active { font-weight: bold; color: green; }
+	} // & > div
+} // .api-list
+
+#keyvalues {
+
+	.carousel {
+		width: 100vw;
+		max-width: 100%;
+		overflow: hidden;
+	}
+	.slides {
+		width: 400vw;
+	}
+	.slide {
+		width: 100vw;
+		padding: 3em 0;
+		height: 40vh;
+	}
+}
+.tabs {
+	display: flex;
+	width: 100%;
+	justify-content: space-around;
+	
+	a {
+		width: 50%;
+		text-align: center;
+	}
+}
+
+.blockets-chain {
+	overflow: hidden;
+	width: 100%;
+	white-space: nowrap;
+	text-align: center;
+	transform: rotate(-3deg);
+    word-spacing: -1px;
+
+	img {
+		display: inline-block;
+		opacity: 1;
+
+		&.active { opacity: 1; }
+	}
+}
+
+.section-icon {
+	float: left;
+	width: 7em;
+	height: 7em;
+	margin-top: -1em;
+	margin-right: 1em;
+	position: relative;
+	z-index: 1;
+
+	@media #{$xs} {
+		width: 5em;
+		height: 5em;
+	}
+
+	&:after {
+		content: "";
+		display: block;
+		background-color: transparentize($maincolor,.5);
+		width: 80%;
+		height: 80%;
+		position: absolute;
+		top: 20%;
+		left: 20%;
+		z-index: -1;	
+		border-radius: 100%
+	}
+	svg {
+		width: 100%;
+		height: 100%;
+	}
+}
+.section-illustration {
+	float: right;
+	width: 10em;
+	height: 10em;
+	margin-top: -1em;
+	margin-left: 1em;
+	position: relative;
+	z-index: 1;
+
+	@media #{$xs} {
+		width: 5em;
+		height: 5em;
+	}
+
+	&:after {
+		content: "";
+		display: block;
+		background-color: transparentize($maincolor,.5);
+		width: 80%;
+		height: 80%;
+		position: absolute;
+		top: 20%;
+		left: 20%;
+		z-index: -1;	
+		border-radius: 100%
+	}
+
+	svg {
+		width: 100%;
+		height: 100%;
+	}
+	.plane {fill: black;}
+}
+
+.footer {
+	background: transparentize($maincolor,.5);
+	text-align: center;
+	font-weight: bold;
+	padding: 1em 0;
+
+	span {
+		display: inline-block;
+
+		&:after {
+			content: "-";
+			display: inline-block;
+			margin: 0 .5em;
+		}
+		&:last-child:after {
+			display: none;
+		}
+	}
+}
+
+.blocklinks {
+	a, a:link {
+		background: none;
+		color: inherit;
+		display: block;
+	    border-bottom: 1px solid #ccc;
+	    padding: .5em;
+	    white-space: nowrap;
+	    text-overflow: ellipsis;
+	    overflow: hidden;
+	    font-weight: 600;
+
+	    .title,
+	    .teaser {
+	    	display: block;
+	    	line-height: 1;
+	    }
+	    .teaser {
+	    	font-weight: normal; 
+	    }
+	}
+	a:focus,
+	a:hover {
+		background: transparentize($maincolor,.5);
+
+		&:after {
+			display: none;
+		}
+	}
+} //.blocklinks
+
+// MODAL WINDOW ////////////////////////////////////////////////////
+
+.no__select {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none
+}
+@-webkit-keyframes scale-up-center {
+	0% {
+		-webkit-transform: scale(.5);
+		transform: scale(.5)
+	}
+	100% {
+		-webkit-transform: scale(1);
+		transform: scale(1)
+	}
+}
+
+@keyframes scale-up-center {
+	0% {
+		-webkit-transform: scale(.5);
+		transform: scale(.5)
+	}
+	100% {
+		-webkit-transform: scale(1);
+		transform: scale(1)
+	}
+}
+
+
+.modal-dialog:target { // Open the modal box
+	opacity: 1;
+	display: block;
+	pointer-events: auto;
+
+	.modal { //Apply animation on modal box opening
+		opacity: 1;
+
+		-webkit-animation: scale-up-center 100ms cubic-bezier(.39, .575, .565, 1) both;
+		animation: scale-up-center 100ms cubic-bezier(.39, .575, .565, 1) both
+	} //.modal
+} //.modal-dialog:target 
+
+.modal-dialog:target~#root,
+a[class^="close"]:target ~ #root { // Hide the background beside the modal box
+	overflow: auto;
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	height: 0;
+	margin: 0;
+	padding: 0
+}
+
+/**
+ * For default browser (Android 2.3.6): restores the 
+ * wrapper visibility after closing the modal box
+ */
+#close:target~#root,
+a[class^="close"]:target ~ #root {position: static}
+
+.modal-dialog { // The wrapper of the modal box
+	display: none;
+	opacity: 0;
+	position: fixed;
+	position: absolute;
+	z-index: 99999;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: #fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNiqAcAAIgAgoGu+rEAAAAASUVORK5CYII=) 0 0 repeat;
+	background: rgba(255, 255, 255, .95);
+
+	.modal { // The inner part of the modal box
+		overflow: hidden;
+		overflow: -moz-hidden-unscrollable;
+		position: relative;
+		z-index: 1000;
+		margin: 2em auto;
+		max-width: 40em;
+		background: #fff;
+		border-radius: 6px 6px 0 0;
+	    transform: translate3d(0, 0, 0);
+		box-shadow: 0 0 45px rgba(0, 0, 0, .25);
+		@media #{$sm} { 
+			max-width: none; 
+			margin: 2em;
+		}
+		@media #{$xs} { margin: 3vh; }
+	} //.modal
+
+	.close {
+		display: block;
+		position: absolute;
+		z-index: 10000;
+		top: .5em;
+		right: .5em;
+		width: 2.5em;
+		height: 2.5em;
+		border: .25em solid white;
+		background: $seccolor;
+		vertical-align: middle;
+		align-self: center;
+		text-align: center;
+		text-decoration: none;
+		color: #fff;
+		border-radius: 50%;
+		font-style: normal;
+
+		strong {
+			display: inline-block;
+			margin: 0;
+			padding: 0;
+			vertical-align: middle;
+			cursor: pointer;
+			font-size: 2em;
+			line-height: .5em;
+		}
+		&:hover,
+		&:focus {
+			background: $maincolor;
+		}
+
+		&:after { display: none !important; }
+	} //.close
+
+	.inner-dialog {
+		overflow-y: visible;
+		overflow-y: auto;
+		display: inline-block;  
+		
+		@media #{$xs} { max-height: 90vh; }
+
+		max-height: 96vh;
+
+		height: 90%;
+		margin: 0;
+		padding: 5px 20px 50px 20px
+	} //.inner-dialog
+} //.modal-dialog
+
+
+/**
+ * The header of the modal box
+ */
+
+
+
+
+
+/**
+ * Media query for screen below 720px
+ */
+@media only screen and (max-width:720px) {
+
+	.modal-dialog .modal {
+		
+	}
+}
+
+
+
+// Styling the scroll bars for webkit browsers engine
+
+.modal-dialog ::-webkit-scrollbar {
+	width: 3px;
+	height: 3px
+}
+.modal-dialog ::-webkit-scrollbar-button {background-color: #666}
+.modal-dialog ::-webkit-scrollbar-track {background-color: #999}
+.modal-dialog ::-webkit-scrollbar-track-piece {background-color: #fff}
+.modal-dialog ::-webkit-scrollbar-thumb {
+	height: 50px;
+	background-color: #999;
+	border-radius: 3px
+}
+.modal-dialog ::-webkit-scrollbar-corner {background-color: #999}
+.modal-dialog ::-webkit-resizer {background-color: #666}
+
+

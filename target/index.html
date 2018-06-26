@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="main.css">
+    <meta charset="UTF-8">
+    <title>Blockets SplitPayments API</title>
+                                                         </head>
+<body>
+<div class="container">
+    <h1>Blockets SplitPayments API</h1>
+    <p class="sw-info">Version: <span class="sw-info-version">0.2.0</span></p>
+    <p><p>The Blockets Split Payments API is an interface that a ticket-selling service can dispatch to,
+    to handle the actual payments of these tickets.</p>
+    <p>As soon as a payment has happened, the money of this payment is then automatically split and divided
+    between the different parties that ought to obtain money from it.</p>
+    </p>
+    
+    
+    <div id="sw-schemes" class="sw-default-value">
+        <span class="sw-default-value-header">Schemes:</span>
+        
+    </div>
+    
+        <h2 id="swagger--summary-no-tags">Summary</h2>
+        <table class="table table-bordered table-condensed swagger--summary">
+            <thead>
+            <tr>
+                <th>Path</th>
+                <th>Operation</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                            <td class="swagger--summary-path" rowspan="2">
+                                <a href="#path--events">/events</a>
+                            </td>
+                        <td>
+                            <a href="#operation--events-get">GET</a>
+                        </td>
+                        <td>
+                            <p>Lists all (your) Events.</p>
+        
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="#operation--events-post">POST</a>
+                        </td>
+                        <td>
+                            <p>Creates new Event</p>
+        
+                        </td>
+                    </tr>
+                    <tr>
+                            <td class="swagger--summary-path" rowspan="1">
+                                <a href="#path--events--event_identifier-">/events/{event_identifier}</a>
+                            </td>
+                        <td>
+                            <a href="#operation--events--event_identifier--get">GET</a>
+                        </td>
+                        <td>
+                            <p>Retrieves Event information and summary.</p>
+        
+                        </td>
+                    </tr>
+                    <tr>
+                            <td class="swagger--summary-path" rowspan="1">
+                                <a href="#path--events--event_identifier--parties">/events/{event_identifier}/parties</a>
+                            </td>
+                        <td>
+                            <a href="#operation--events--event_identifier--parties-get">GET</a>
+                        </td>
+                        <td>
+                            <p>Lists parties who will receive/have received money from event&#39;s sold tickets.</p>
+        
+                        </td>
+                    </tr>
+                    <tr>
+                            <td class="swagger--summary-path" rowspan="2">
+                                <a href="#path--events--event_identifier--ticket_payments">/events/{event_identifier}/ticket_payments</a>
+                            </td>
+                        <td>
+                            <a href="#operation--events--event_identifier--ticket_payments-get">GET</a>
+                        </td>
+                        <td>
+                            <p>List ticket payments made under this event.</p>
+        
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="#operation--events--event_identifier--ticket_payments-post">POST</a>
+                        </td>
+                        <td>
+                            <p>Fetches ticket payment link.</p>
+        
+                        </td>
+                    </tr>
+                    <tr>
+                            <td class="swagger--summary-path" rowspan="1">
+                                <a href="#path--events--event_identifier--ticket_payments--ticket_payment_identifier-">/events/{event_identifier}/ticket_payments/{ticket_payment_identifier}</a>
+                            </td>
+                        <td>
+                            <a href="#operation--events--event_identifier--ticket_payments--ticket_payment_identifier--get">GET</a>
+                        </td>
+                        <td>
+                            <p>Retrieves ticket payment information and status.</p>
+        
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+    
+    
+    
+    <h2>Paths</h2>
+    
+        
+        <span id="path--events"></span>
+            <div id="operation--events-get" class="swagger--panel-operation-get panel">
+                <div class="panel-heading">
+                    <div class="operation-summary">Lists all (your) Events.</div>
+                    <h3 class="panel-title"><span class="operation-name">GET</span> <strong>/events</strong></h3>
+                </div>
+                <div class="panel-body">
+                    <section class="sw-operation-description">
+                        <p>Returns list of events for this account. TODO Pagination</p>
+            
+                    </section>
+                    
+                    
+                        <section class="sw-responses">
+                    
+                            <dl>
+                                    <dt class="sw-response-200">
+                                        200 OK
+                                    
+                                    </dt>
+                                    <dd class="sw-response-200">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>A list of identifiers, which can be used in the <code>/events/{event_identifier}</code> call.</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                            </div>
+                                            
+                                            </div>                </dd>
+                            </dl>
+                        </section>
+                </div>
+            </div>    <div id="operation--events-post" class="swagger--panel-operation-post panel">
+                <div class="panel-heading">
+                    <div class="operation-summary">Creates new Event</div>
+                    <h3 class="panel-title"><span class="operation-name">POST</span> <strong>/events</strong></h3>
+                </div>
+                <div class="panel-body">
+                    <section class="sw-operation-description">
+                        <p>Creates a new Event. An Event is the containing scope for a list of parties that might receive payments, and many different tickets of different types that might be sold.
+            Accounts are separated in events exactly for administrative purposes.</p>
+            
+                    </section>
+                    
+                    
+                        <section class="sw-responses">
+                    
+                            <dl>
+                                    <dt class="sw-response-202">
+                                        202 Accepted
+                                    
+                                    </dt>
+                                    <dd class="sw-response-202">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>Returned when event creation request was successfully received.</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                            </div>
+                                            
+                                            </div>                </dd>
+                                    <dt class="sw-response-422">
+                                        422 Unprocessable Entity
+                                    
+                                    </dt>
+                                    <dd class="sw-response-422">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>Returned when malformed information was sent and event creation failed.</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                            </div>
+                                            
+                                            </div>                </dd>
+                            </dl>
+                        </section>
+                </div>
+            </div>    
+        <span id="path--events--event_identifier-"></span>
+            <div id="operation--events--event_identifier--get" class="swagger--panel-operation-get panel">
+                <div class="panel-heading">
+                    <div class="operation-summary">Retrieves Event information and summary.</div>
+                    <h3 class="panel-title"><span class="operation-name">GET</span> <strong>/events/{event_identifier}</strong></h3>
+                </div>
+                <div class="panel-body">
+                    <section class="sw-operation-description">
+                        
+                    </section>
+                    
+                        <section class="sw-request-params">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th class="sw-param-name"></th>
+                                    <th class="sw-param-description"></th>
+                                    <th class="sw-param-type"></th>
+                                    <th class="sw-param-data-type"></th>
+                                    <th class="sw-param-annotation"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                        <tr>
+                                            <td>
+                                                event_identifier
+                                            <td><p>An identifier representing a single Event. Scoped under one API Consumer account, so you
+                                        can set this to any string that might be meaningful to track the event in your own application.</p>
+                                        </td>
+                                            <td>path</td>
+                                            <td>
+                                        <span class="json-property-type">object</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                                    <span class="swagger--global"></span> <span class="json-schema--reference"><a href="#/components/parameters/event_identifier">#/components/parameters/event_identifier</a></span>
+                                            </td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    
+                        <section class="sw-responses">
+                    
+                            <dl>
+                                    <dt class="sw-response-200">
+                                        200 OK
+                                    
+                                    </dt>
+                                    <dd class="sw-response-200">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>TODO</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                            </div>
+                                            
+                                            </div>                </dd>
+                                    <dt class="sw-response-404">
+                                        404 Not Found
+                                    
+                                    </dt>
+                                    <dd class="sw-response-404">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>Returned when no event with that identifier is known.</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                            </div>
+                                            
+                                            </div>                </dd>
+                            </dl>
+                        </section>
+                </div>
+            </div>    
+        <span id="path--events--event_identifier--parties"></span>
+            <div id="operation--events--event_identifier--parties-get" class="swagger--panel-operation-get panel">
+                <div class="panel-heading">
+                    <div class="operation-summary">Lists parties who will receive/have received money from event&apos;s sold tickets.</div>
+                    <h3 class="panel-title"><span class="operation-name">GET</span> <strong>/events/{event_identifier}/parties</strong></h3>
+                </div>
+                <div class="panel-body">
+                    <section class="sw-operation-description">
+                        <p>List parties who will receive and/or have received money for this event from the sold tickets.
+            TODO pagination</p>
+            
+                    </section>
+                    
+                        <section class="sw-request-params">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th class="sw-param-name"></th>
+                                    <th class="sw-param-description"></th>
+                                    <th class="sw-param-type"></th>
+                                    <th class="sw-param-data-type"></th>
+                                    <th class="sw-param-annotation"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                        <tr>
+                                            <td>
+                                                event_identifier
+                                            <td><p>An identifier representing a single Event. Scoped under one API Consumer account, so you
+                                        can set this to any string that might be meaningful to track the event in your own application.</p>
+                                        </td>
+                                            <td>path</td>
+                                            <td>
+                                        <span class="json-property-type">object</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                                    <span class="swagger--global"></span> <span class="json-schema--reference"><a href="#/components/parameters/event_identifier">#/components/parameters/event_identifier</a></span>
+                                            </td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    
+                        <section class="sw-responses">
+                    
+                            <dl>
+                                    <dt class="sw-response-200">
+                                        200 OK
+                                    
+                                    </dt>
+                                    <dd class="sw-response-200">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>TODO</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                            </div>
+                                            
+                                            </div>                </dd>
+                            </dl>
+                        </section>
+                </div>
+            </div>    
+        <span id="path--events--event_identifier--ticket_payments"></span>
+            <div id="operation--events--event_identifier--ticket_payments-get" class="swagger--panel-operation-get panel">
+                <div class="panel-heading">
+                    <div class="operation-summary">List ticket payments made under this event.</div>
+                    <h3 class="panel-title"><span class="operation-name">GET</span> <strong>/events/{event_identifier}/ticket_payments</strong></h3>
+                </div>
+                <div class="panel-body">
+                    <section class="sw-operation-description">
+                        <p>TODO Pagination</p>
+            
+                    </section>
+                    
+                        <section class="sw-request-params">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th class="sw-param-name"></th>
+                                    <th class="sw-param-description"></th>
+                                    <th class="sw-param-type"></th>
+                                    <th class="sw-param-data-type"></th>
+                                    <th class="sw-param-annotation"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                        <tr>
+                                            <td>
+                                                event_identifier
+                                            <td><p>An identifier representing a single Event. Scoped under one API Consumer account, so you
+                                        can set this to any string that might be meaningful to track the event in your own application.</p>
+                                        </td>
+                                            <td>path</td>
+                                            <td>
+                                        <span class="json-property-type">object</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                                    <span class="swagger--global"></span> <span class="json-schema--reference"><a href="#/components/parameters/event_identifier">#/components/parameters/event_identifier</a></span>
+                                            </td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    
+                        <section class="sw-responses">
+                    
+                            <dl>
+                                    <dt class="sw-response-200">
+                                        200 OK
+                                    
+                                    </dt>
+                                    <dd class="sw-response-200">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>A list of ticket payment identifiers, which can be used in the <code>/events/{event_identifier}/ticket_payments/{ticket_payment_identifier}</code> call.</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                            </div>
+                                            
+                                            </div>                </dd>
+                            </dl>
+                        </section>
+                </div>
+            </div>    <div id="operation--events--event_identifier--ticket_payments-post" class="swagger--panel-operation-post panel">
+                <div class="panel-heading">
+                    <div class="operation-summary">Fetches ticket payment link.</div>
+                    <h3 class="panel-title"><span class="operation-name">POST</span> <strong>/events/{event_identifier}/ticket_payments</strong></h3>
+                </div>
+                <div class="panel-body">
+                    <section class="sw-operation-description">
+                        <p>Starts the ticket selling process. This will return an URL, to whom the buyer ought to be redirected. This URL will contain
+            the payment screen where the user can interact with their bank to confirm the monetary transaction.</p>
+            
+                    </section>
+                    
+                        <section class="sw-request-params">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th class="sw-param-name"></th>
+                                    <th class="sw-param-description"></th>
+                                    <th class="sw-param-type"></th>
+                                    <th class="sw-param-data-type"></th>
+                                    <th class="sw-param-annotation"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                        <tr>
+                                            <td>
+                                                event_identifier
+                                            <td><p>An identifier representing a single Event. Scoped under one API Consumer account, so you
+                                        can set this to any string that might be meaningful to track the event in your own application.</p>
+                                        </td>
+                                            <td>path</td>
+                                            <td>
+                                        <span class="json-property-type">object</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                                    <span class="swagger--global"></span> <span class="json-schema--reference"><a href="#/components/parameters/event_identifier">#/components/parameters/event_identifier</a></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                callback_url
+                                            <td><p>This path will be called once the payment has completed, failed or timed out.</p>
+                                        </td>
+                                            <td>query</td>
+                                            <td>
+                                        <span class="json-property-type">object</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                            </td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    
+                        <section class="sw-responses">
+                    
+                            <dl>
+                                    <dt class="sw-response-200">
+                                        200 OK
+                                    
+                                    </dt>
+                                    <dd class="sw-response-200">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>Successfull result, containing payment URL to redirect buyer to.</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                            </div>
+                                            
+                                            </div>                </dd>
+                                    <dt class="sw-response-422">
+                                        422 Unprocessable Entity
+                                    
+                                    </dt>
+                                    <dd class="sw-response-422">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>Returned when malformed information was sent and no payment can be created.</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                            </div>
+                                            
+                                            </div>                </dd>
+                            </dl>
+                        </section>
+                </div>
+            </div>    
+        <span id="path--events--event_identifier--ticket_payments--ticket_payment_identifier-"></span>
+            <div id="operation--events--event_identifier--ticket_payments--ticket_payment_identifier--get" class="swagger--panel-operation-get panel">
+                <div class="panel-heading">
+                    <div class="operation-summary">Retrieves ticket payment information and status.</div>
+                    <h3 class="panel-title"><span class="operation-name">GET</span> <strong>/events/{event_identifier}/ticket_payments/{ticket_payment_identifier}</strong></h3>
+                </div>
+                <div class="panel-body">
+                    <section class="sw-operation-description">
+                        
+                    </section>
+                    
+                        <section class="sw-request-params">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th class="sw-param-name"></th>
+                                    <th class="sw-param-description"></th>
+                                    <th class="sw-param-type"></th>
+                                    <th class="sw-param-data-type"></th>
+                                    <th class="sw-param-annotation"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                        <tr>
+                                            <td>
+                                                event_identifier
+                                            <td><p>An identifier representing a single Event. Scoped under one API Consumer account, so you
+                                        can set this to any string that might be meaningful to track the event in your own application.</p>
+                                        </td>
+                                            <td>path</td>
+                                            <td>
+                                        <span class="json-property-type">object</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                                    <span class="swagger--global"></span> <span class="json-schema--reference"><a href="#/components/parameters/event_identifier">#/components/parameters/event_identifier</a></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                ticket_payment_identifier
+                                            <td><p>An identifier representing a single TicketPayment. Scoped under one API Consumer account&#39;s Event, so you
+                                        can set this to any string that might be meaningful to track the event in your own application.</p>
+                                        </td>
+                                            <td>path</td>
+                                            <td>
+                                        <span class="json-property-type">object</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                                    <span class="swagger--global"></span> <span class="json-schema--reference"><a href="#/components/parameters/ticket_payment_identifier">#/components/parameters/ticket_payment_identifier</a></span>
+                                            </td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    
+                        <section class="sw-responses">
+                    
+                            <dl>
+                                    <dt class="sw-response-200">
+                                        200 OK
+                                    
+                                    </dt>
+                                    <dd class="sw-response-200">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>TODO</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                            </div>
+                                            
+                                            </div>                </dd>
+                                    <dt class="sw-response-404">
+                                        404 Not Found
+                                    
+                                    </dt>
+                                    <dd class="sw-response-404">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>Returned when no ticket payment with that identifier is known (for the given event), or the event itself is not known.</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                            </div>
+                                            
+                                            </div>                </dd>
+                            </dl>
+                        </section>
+                </div>
+            </div>
+     
+    
+                       
+    
+</div>
+<script src="bundle.js" type="application/javascript"></script>
+</body>
+</html>
